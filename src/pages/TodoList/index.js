@@ -1,15 +1,22 @@
 const TodoList = () => {
   const todos = [
-    { description: "Pensar sobre viagem SP", done: true },
-    { description: "Pensar sobre ano novo", done: false },
-    { description: "Terminar Todo", done: false },
+    { description: "Pensar sobre viagem SP", id: Math.random(), done: true },
+    { description: "Pensar sobre ano novo", id: Math.random(), done: false },
+    { description: "Terminar Todadsaso", id: Math.random(), done: false },
   ];
   return (
     <div>
       <h1>Todo List</h1>
-      {todos.map((todo) => {
-        return <div>{todo.description}</div>;
-      })}
+      <div>
+        <input type="text"></input>
+
+        <input type="button"></input>
+      </div>
+      <div>
+        {todos.map((todo) => {
+          return <div key={todo.id}>{todo.description}</div>;
+        })}
+      </div>
     </div>
   );
 };
