@@ -14,6 +14,15 @@ html {
   p{
       font-size: 1.6rem;
   }
+
+  label{
+    font-size: 1.6rem;
+  }
+
+  li {
+    font-size: 1.6rem;
+  }
+  
 }
 
 

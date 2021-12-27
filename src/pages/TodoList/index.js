@@ -13,17 +13,14 @@ const TodoList = () => {
   const [todos, setTodos] = useState(initialTodos);
   const [value, setValue] = useState("");
 
-  const handleClick = () => {
+  function handleAddTodo() {
     const todo = { description: value, id: Math.random(), done: false };
     setTodos([...todos, todo]);
-  };
+  }
 
-  // Adicionar estrutura, funcionalidade, estado, estilo
-  // Meu input está pronto, agora eu quero adicionar oq escrevo na lista do map.
-  // Bom, adicionei oq eu escrevo no estado, agora quero adicionar o estado no todos hmm
-  // Blz, resolvi o problema fazendo a função handleClick
-  // Agora que consigo adicionar os todos, quero poder marcar-los quando eles estiverem prontos.
-  // Fazer o botão para apagar e altrerar
+  function handleDeleteTodo(id) {
+    setTodos(todos.filter((todo) => todo.id !== id)); //se for true, continua na lista
+  }
 
   return (
     <div>
@@ -40,13 +37,13 @@ const TodoList = () => {
           type="text"
         ></input>
 
-        <button onClick={handleClick} type="submit">
+        <button onClick={handleAddTodo} type="submit">
           <AddTodoImg src={AddTodoLogo} />
         </button>
       </div>
       <ul>
         {todos.map((todo) => {
-          return <Todo todo={todo}></Todo>;
+          return <Todo handleDeleteTodo={handleDeleteTodo} todo={todo}></Todo>;
         })}
       </ul>
     </div>
