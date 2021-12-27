@@ -5,7 +5,7 @@ import Todo from "../../components/Todo";
 
 const TodoList = () => {
   const initialTodos = [
-    { description: "Pensar sobre viagem SP", id: Math.random(), done: true },
+    { description: "Pensar sobre viagem SP", id: Math.random(), done: false },
     { description: "Pensar sobre ano novo", id: Math.random(), done: false },
     { description: "Terminar Todadsaso", id: Math.random(), done: false },
   ];
@@ -13,19 +13,32 @@ const TodoList = () => {
   const [todos, setTodos] = useState(initialTodos);
   const [value, setValue] = useState("");
 
-  function handleAddTodo() {
+  function handleAddTodo(event) {
+    event.preventDefault();
     const todo = { description: value, id: Math.random(), done: false };
     setTodos([...todos, todo]);
+    setValue("");
   }
 
   function handleDeleteTodo(id) {
     setTodos(todos.filter((todo) => todo.id !== id)); //se for true, continua na lista
   }
 
+  function handleCheckTodo(id) {
+    setTodos(
+      todos.map((todo) => {
+        if (todo.id === id) {
+          todo.done = !todo.done;
+        }
+        return todo;
+      })
+    );
+  }
+
   return (
     <div>
       <h1>GuiK's todo list</h1>
-      <div>
+      <form onSubmit={handleAddTodo}>
         <label htmlFor="addTodoHere">Add Todo Here: </label>
         <input
           onChange={(event) => {
@@ -35,15 +48,23 @@ const TodoList = () => {
           id="addTodoHere"
           required
           type="text"
+          value={value}
         ></input>
 
-        <button onClick={handleAddTodo} type="submit">
+        <button type="submit">
           <AddTodoImg src={AddTodoLogo} />
         </button>
-      </div>
+      </form>
       <ul>
         {todos.map((todo) => {
-          return <Todo handleDeleteTodo={handleDeleteTodo} todo={todo}></Todo>;
+          return (
+            <Todo
+              key={todo.id}
+              handleCheckTodo={handleCheckTodo}
+              handleDeleteTodo={handleDeleteTodo}
+              todo={todo}
+            ></Todo>
+          );
         })}
       </ul>
     </div>
